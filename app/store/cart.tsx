@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function Cart() {
   const { add } = useLocalSearchParams();
@@ -48,9 +50,24 @@ export default function Cart() {
 
       <Text className="text-xl font-bold mt-4">Total: ${total.toFixed(2)}</Text>
 
-      <TouchableOpacity className="bg-blue-600 mt-4 py-3 rounded-xl items-center">
-        <Text className="text-white text-lg font-semibold">Pagar</Text>
-      </TouchableOpacity>
+      <TouchableOpacity
+  className="bg-blue-600 mt-4 py-3 rounded-xl items-center"
+  onPress={async () => {
+    const old = await AsyncStorage.getItem("purchased");
+    const previous = old ? JSON.parse(old) : [];
+
+    await AsyncStorage.setItem(
+      "purchased",
+      JSON.stringify([...previous, ...cart])
+    );
+
+    setCart([]);
+    alert("Compra realizada. Ahora tus canciones están en MyMusic.");
+  }}
+>
+  <Text className="text-white text-lg font-semibold">Pagar</Text>
+</TouchableOpacity>
+
     </View>
   );
 }
