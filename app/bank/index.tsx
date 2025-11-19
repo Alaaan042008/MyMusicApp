@@ -1,17 +1,29 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import "@/global.css";
 
 export default function Bank() {
   const [balance, setBalance] = useState(0);
 
+  useEffect(() => {
+    AsyncStorage.getItem("balance").then(v => {
+      if (v) setBalance(Number(v));
+    });
+  }, []);
+
+  async function saveBalance(newValue: number) {
+    setBalance(newValue);
+    await AsyncStorage.setItem("balance", String(newValue));
+  }
+
   function deposit() {
-    setBalance((b) => b + 100);
+    saveBalance(balance + 10);
   }
 
   function withdraw() {
-    setBalance((b) => (b >= 100 ? b - 100 : b));
+    if (balance >= 10) saveBalance(balance - 10);
   }
 
   return (
@@ -33,18 +45,14 @@ export default function Bank() {
         onPress={deposit}
         className="bg-emerald-600 px-6 py-3 rounded-2xl w-full items-center mb-4"
       >
-        <Text className="text-white text-lg font-semibold">
-          Depositar $100
-        </Text>
+        <Text className="text-white text-lg font-semibold">Depositar $10</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={withdraw}
         className="bg-red-600 px-6 py-3 rounded-2xl w-full items-center"
       >
-        <Text className="text-white text-lg font-semibold">
-          Retirar $100
-        </Text>
+        <Text className="text-white text-lg font-semibold">Retirar $10</Text>
       </TouchableOpacity>
     </View>
   );

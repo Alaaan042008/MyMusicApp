@@ -21,12 +21,6 @@ export default function Home() {
         </TouchableOpacity>
       </Link>
 
-      <Link href="/store/cart" asChild>
-        <TouchableOpacity className="bg-green-600 px-6 py-3 rounded-2xl w-full items-center mb-4">
-          <Text className="text-white text-lg font-semibold">Ver Carrito</Text>
-        </TouchableOpacity>
-      </Link>
-
       <Link href="/mymusic" asChild>
         <TouchableOpacity className="bg-purple-600 px-6 py-3 rounded-2xl w-full items-center mb-4">
           <Text className="text-white text-lg font-semibold">MyMusic</Text>
