@@ -39,7 +39,7 @@ export default function StoreList() {
 
         <TouchableOpacity
           onPress={() => fetchTracks(query)}
-          className="bg-blue-600 px-4 ml-2 rounded-xl justify-center"
+          className="bg-red-600 px-4 ml-2 rounded-xl justify-center"
         >
           <Text className="text-white font-semibold">Buscar</Text>
         </TouchableOpacity>
@@ -67,7 +67,7 @@ export default function StoreList() {
                 }}
               >
                 <TouchableOpacity className="w-1/2 p-2">
-                  <View className="bg-white rounded-2xl p-2">
+                  <View className="bg-red-500 rounded-2xl p-2">
                     <Image
                       source={{ uri: img }}
                       style={{ width: "100%", height: 130, borderRadius: 12 }}

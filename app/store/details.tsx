@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import "@/global.css";
+import { ArrowLeft, ShoppingCart } from "lucide-react-native";
 
 export default function Details() {
   const { id } = useLocalSearchParams();
@@ -40,7 +39,7 @@ export default function Details() {
     await AsyncStorage.setItem("balance", String(balance - price));
 
     Alert.alert("Éxito", "Canción comprada correctamente.");
-    router.push("/mymusic");
+    router.push("/music");
   }
 
   const imageUrl =
@@ -49,14 +48,14 @@ export default function Details() {
     item.artworkUrl60?.replace("http://", "https://");
 
   return (
-    <ScrollView className="flex-1 bg-[#0d0d0d] p-6">
+    <ScrollView className="flex-1 bg-black p-6">
 
       <TouchableOpacity
         onPress={() => router.back()}
         className="flex-row items-center mb-4"
       >
-        <Ionicons name="chevron-back" size={28} color="#6EE7B7" />
-        <Text className="text-[#6EE7B7] text-lg ml-1">Regresar</Text>
+        <ArrowLeft color="orange" size={28} />
+        <Text className="text-orange-400 text-lg ml-2">Regresar</Text>
       </TouchableOpacity>
 
       <Image
@@ -64,19 +63,19 @@ export default function Details() {
         style={{ width: "100%", height: 260, borderRadius: 22 }}
       />
 
-      <Text className="text-white text-3xl font-extrabold mt-5">
+      <Text className="text-red-600 text-3xl font-extrabold mt-5">
         {item.trackName}
       </Text>
 
-      <Text className="text-[#A1A1AA] text-xl mt-1">{item.artistName}</Text>
+      <Text className="text-orange-400 text-xl mt-1">{item.artistName}</Text>
 
-      <Text className="text-[#737373] mt-1 italic">{item.collectionName}</Text>
+      <Text className="text-gray-500 mt-1 italic">{item.collectionName}</Text>
 
       <TouchableOpacity
-        className="bg-emerald-600 mt-8 py-4 rounded-2xl items-center flex-row justify-center"
+        className="bg-red-700 mt-8 py-4 rounded-2xl items-center flex-row justify-center"
         onPress={buySong}
       >
-        <Ionicons name="cart" size={22} color="white" style={{ marginRight: 8 }} />
+        <ShoppingCart color="white" size={22} style={{ marginRight: 8 }} />
         <Text className="text-white font-semibold text-lg">
           Comprar por $10
         </Text>
